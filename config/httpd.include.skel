@@ -1,0 +1,22 @@
+<VirtualHost *:80>
+	ServerName			${build.url}
+	DocumentRoot		${build.path}/htdocs/
+    
+	<Directory />
+		Options +FollowSymLinks
+	</Directory>
+	<Directory ${build.path}>
+	  Options All Multiviews -Indexes
+	  AllowOverride All
+	</Directory>
+	
+	# Test dir alias
+	RewriteEngine		On
+	RewriteLogLevel 	4
+    
+	LogFormat "%h %l %u %t \"%r\" %>s %b %T" common_with_time
+	CustomLog ${build.log_dir}/apache_access.log common_with_time
+	ErrorLog  ${build.log_dir}/apache_error.log
+    
+	php_admin_value		error_log		${build.log_dir}/php_errors
+</VirtualHost>

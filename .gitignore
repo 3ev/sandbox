@@ -1,0 +1,3 @@
+logs/*
+config/phing.properties
+config/httpd.include

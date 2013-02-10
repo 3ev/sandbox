@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="singup" basedir="." default="build:build">
+    <!-- Set timestamp -->
+    <tstamp/>
+    
+    <php expression="date('d-F-Y')" returnProperty="time.today" />
+
+    <!-- Override memory limit -->
+    <php expression="ini_set('memory_limit', '-1');" />
+
+    <!-- Full path to build-->
+    <exec command="pwd" dir="." checkreturn="true" outputProperty="build.path" />
+    
+    <!-- This is where we store the configured properties -->
+    <property name="paths.properties" value="${build.path}/config/phing.properties" />
+    <property name="paths.project_properties" value="${build.path}/config/project.properties" />
+    
+    <!-- Check if we have the properties file -->
+    <available file="${paths.properties}" property="hasPropertiesFile" />
+    
+    <!-- Default project name -->
+    <property name="project.name" value="" />
+    
+    <!-- Include configuration -->
+    <property file="${paths.project_properties}" override="true" />
+    <property file="${paths.properties}" override="true" />
+    
+    <!-- Current directory name
+        Used for default property values
+    -->
+    <exec command="basename ${build.path}" dir="." checkreturn="true" outputProperty="build.basename" />
+    
+    <!-- Exports properties to specified file -->
+    <target name="build:save_config">
+        <exportproperties targetfile="${paths.properties}" />
+    </target>
+    
+    <!-- Ensures required project properties are defined
+    see config
+    -->
+    <target name="needConfiguration">
+        <if>
+            <and>
+                <isset property="project.name" />
+                <isset property="build.name" />
+                <isset property="build.url" />
+                <isset property="build.log_dir" />                
+                <isset property="build.public_dir" />
+            </and>
+            <then>
+                <property name="isConfigured" value="true" />
+            </then>
+            <else>
+                <property name="isConfigured" value="false" />
+                <phingcall target="build:config" />
+            </else>
+        </if>
+        
+        <property file="${paths.properties}"  />
+    </target>
+
+    <!-- Defines project properties from user input
+    see build:save_config
+    -->
+    <target name="build:config" description="Configure build">
+        <input propertyname="project.name" defaultValue="${project.name}" promptChar=" ?">Project Name</input>
+        <input propertyname="build.name" defaultValue="${build.basename}" promptChar=" ?">Build Name</input>
+        <input propertyname="build.url" defaultValue="${build.name}.example.com" promptChar=" ?">Build URL</input>
+        <input propertyname="build.log_dir" defaultValue="${build.path}/logs" promptChar=" ?">Log directory</input>
+        <input propertyname="build.public_dir" defaultValue="${build.path}/htdocs" promptChar=" ?">Public directory</input>        
+        <phingcall target="build:save_config" />
+    </target>
+    
+    <!-- Applies configuration to skeleton files
+    Convention: *.skel
+    -->
+    <target name="build:skel" description="Applies configuration to skel files" depends="needConfiguration">
+        <echo msg="Skel files..." />
+
+        <copy todir="" overwrite="true">
+            <mapper type="glob" from="*.skel" to="*"/>
+            <filterchain>
+                <expandproperties />
+            </filterchain>
+        
+            <fileset dir=".">
+                <include name="**/*.skel" />
+            </fileset>
+        </copy>
+    </target>
+    
+    <target name="build:build" description="Build the project" depends="needConfiguration">
+        <mkdir dir="${build.log_dir}" />
+        <chmod file="${build.log_dir}" mode="2775" />
+        <phingcall target="build:skel" />
+    </target>
+    
+    <target name="stack:web:enable" description="symlink to apache vhost and restart apache">
+      <exec command="ln -s ${build.path}/config/httpd.include /etc/apache2/sites-enabled/${build.name}" escape="false" />
+      <exec command="sudo service apache2 restart" escape="false" />
+    </target>
+</project>
+
