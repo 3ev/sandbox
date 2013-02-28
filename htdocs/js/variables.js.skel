@@ -1,0 +1,5 @@
+$(document).ready(function(){
+	guardianfeed = {};
+    guardianfeed.searchterm = '${feed.search}';
+    guardianfeed.apikey = '${feed.apikey}';
+});

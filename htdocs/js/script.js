@@ -1,7 +1,7 @@
 $(document).ready(function(){
     $.ajax({
         dataType: "jsonp",
-        url: 'http://content.guardianapis.com/search?q=${feed.search}&format=json&api-key=${feed.apikey}',
+        url: 'http://content.guardianapis.com/search?q='+guardianfeed.searchterm+'&format=json&api-key='+guardianfeed.apikey,
         success: function(data){
             loadfeed(data.response, $("#feed"));
         }
