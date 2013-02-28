@@ -67,7 +67,9 @@
         <input propertyname="build.name" defaultValue="${build.basename}" promptChar=" ?">Build Name</input>
         <input propertyname="build.url" defaultValue="${build.name}.example.com" promptChar=" ?">Build URL</input>
         <input propertyname="build.log_dir" defaultValue="${build.path}/logs" promptChar=" ?">Log directory</input>
-        <input propertyname="build.public_dir" defaultValue="${build.path}/htdocs" promptChar=" ?">Public directory</input>        
+        <input propertyname="build.public_dir" defaultValue="${build.path}/htdocs" promptChar=" ?">Public directory</input>
+        <input propertyname="feed.apikey" defaultValue="${feed.apikey}" promptChar=" ?">Feed API key</input>
+        <input propertyname="feed.search" defaultValue="${feed.search}" promptChar=" ?">Feed search keyword</input>
         <phingcall target="build:save_config" />
     </target>
     
