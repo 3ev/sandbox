@@ -19,7 +19,10 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('welcome_message');
+        $this->output->cache(1); // Cache for 1 minute
+        $feed = json_decode(file_get_contents("http://content.guardianapis.com/search?q=fish&format=json&api-key=kaqthxjmfxabpu8ufgb56aej"));
+        $data["news"] = $feed->response->results;
+        $this->load->view('welcome_message', $data);
 	}
 }
 
