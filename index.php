@@ -12,24 +12,26 @@
         <div class="navbar navbar-inverse navbar-fixed-top">
           <div class="navbar-inner">
                 <div class="container">
-                  <a class="brand" href="#">3ev Test</a>
+                  <a class="brand" href="#">3ev Project 2</a>
                 </div>
           </div>
         </div>
-        <div class="container">
-                <fieldset>
-                    <div class="control-group">
-                       
-                    </div>
-                    <div class="control-group">
-                      <div class="controls">
-                            <button class="btn btn-success generate">Generate xml</button>
-                      </div>
-                    </div>
-                    <div class="control-group sortxmlWrapper">
-                        
-                    </div>
-                </fieldset>
+        <div class="container main">
+            <div class="row">
+                <div class="span12">
+                    <fieldset>
+                        <h1>What the world is saying about fish</h1>
+                        <div class="control-group">
+
+                        </div>
+                        <div class="control-group">
+
+                        </div>
+                        <div class="control-group sortxmlWrapper">
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
         </div>
     </body>
 </html>
