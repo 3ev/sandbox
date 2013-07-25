@@ -1,3 +1,8 @@
+<?php 
+    require_once __DIR__.'/../app/AppKernel.php';
+
+?>
+
 <html>
     <head>
             <title></title>
