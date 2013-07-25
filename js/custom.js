@@ -3,7 +3,11 @@ var TEMPALTE = "<div><h2>[TITLE]</h2><p><img src='[IMG]' alt='Topic image'/></p>
 
 
 $(document).ready( function () {
-    displayBlogs();
+//    displayBlogs();
+
+    $('#get_blogs').click(function () {
+        displayBlogs($('#source_url').val());
+    });
 });
 
 
@@ -18,11 +22,15 @@ function p(o) {
 function populateBlogs () {
 }
 
-function displayBlogs() {
+function displayBlogs(url) {
     var objBlogs = {};
+    if(!url) {
+        url = this.URL 
+    }
+    
     $.ajax({ 
         type: 'GET',
-        url: this.URL,
+        url: url,
         dataType: 'jsonp', 
         success: function(data) { 
             if(data.response) {

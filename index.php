@@ -17,6 +17,12 @@
           </div>
         </div>
         <div class="container main">
+            <div class="row" >
+                <div class="span12">
+                    <input type="text"  size="50" value="http://content.guardianapis.com/search?q=fish&format=json&api-key=kaqthxjmfxabpu8ufgb56aej&show-fields=thumbnail" id="source_url"/>
+                    <button id="get_blogs" class="btn btn-success" >Get data</button>
+                </div>
+                </div>
             <div class="row">
                 <div class="span12">
                     <fieldset>
@@ -26,7 +32,6 @@
                         </div>
                         <div class="control-group">
 
-                        </div>
                         </div>
                     </fieldset>
                 </div>
