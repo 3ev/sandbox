@@ -21,13 +21,12 @@
                 <div class="span12">
                     <fieldset>
                         <h1>What the world is saying about fish</h1>
-                        <div class="control-group">
+                        <div class="control-group" id="blog-container">
 
                         </div>
                         <div class="control-group">
 
                         </div>
-                        <div class="control-group sortxmlWrapper">
                         </div>
                     </fieldset>
                 </div>
